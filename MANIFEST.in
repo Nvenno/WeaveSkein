@@ -1,0 +1,4 @@
+include CONTRIBUTING.md
+include docs/report.png
+recursive-include examples *.py
+recursive-include tests *.py

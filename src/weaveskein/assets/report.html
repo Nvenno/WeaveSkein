@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>WeaveSkein · Dependency explorer</title>
+<style>/* STYLE */</style>
+</head>
+<body>
+<header class="mast">
+  <div class="brand"><svg aria-hidden="true" viewBox="0 0 38 32" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 8 15 8-16 9 16 9-18M2 4l8 15 8-16 9 16 9-17"/></svg>WeaveSkein</div>
+  <div class="repo"><span>Repository</span><b id="project"></b></div>
+</header>
+<main>
+  <div class="overview"><h1>Dependency explorer</h1>
+    <dl id="stats" aria-label="Complete graph statistics">
+      <div><dt>Modules</dt><dd id="total-modules"></dd></div>
+      <div><dt>Direct edges</dt><dd id="total-edges"></dd></div>
+      <div><dt>Isolated modules</dt><dd id="total-isolated"></dd></div>
+      <div><dt>Circular groups</dt><dd id="total-cycles"></dd></div>
+    </dl>
+  </div>
+  <div class="panels">
+    <section class="workspace" aria-labelledby="map-title">
+      <div class="panel-heading"><h2 id="map-title"><span class="icon" data-icon="graph"></span>Dependency graph</h2>
+        <span id="visible-count" aria-live="polite"></span></div>
+      <div class="toolbar">
+        <div class="search"><span class="icon" data-icon="search"></span>
+          <input id="query" aria-label="Search visible modules" type="search" placeholder="Search modules…" autocomplete="off" aria-controls="results">
+          <kbd>/</kbd><div id="results" class="popover" hidden></div>
+        </div>
+        <div class="filter-wrap"><button id="filters" aria-expanded="false" aria-controls="filter-panel"><span class="icon" data-icon="filter"></span>Filters<span id="filter-count" hidden></span></button>
+          <div id="filter-panel" class="popover" hidden>
+            <h3>Visibility</h3>
+            <label><input id="hide-tests" type="checkbox">Hide test modules</label>
+            <label><input id="hide-examples" type="checkbox">Hide example modules</label>
+            <label class="focus-label" for="focus-mode">Dependency focus</label>
+            <select id="focus-mode" disabled>
+              <option value="all">Entire graph</option><option value="out">Direct dependencies</option>
+              <option value="in">Direct importers</option><option value="both">All direct connections</option>
+            </select><p id="focus-help">Select a module to enable focus.</p>
+            <button id="reset">Reset filters</button>
+          </div>
+        </div>
+        <button id="cycles" aria-pressed="false" title="Highlight circular groups and the edges within them"><span class="icon" data-icon="cycle"></span>Cycles</button>
+      </div>
+      <div class="plot"><div id="graph" role="img" aria-label="Directed graph from importers to dependencies. Use search or the module index to explore by keyboard."></div>
+        <div id="empty" hidden><strong id="empty-title"></strong><p id="empty-help"></p><button id="empty-reset">Reset filters</button></div>
+        <div id="tooltip" hidden></div>
+        <div class="map-tools"><button id="zoom-out" aria-label="Zoom out">−</button><output id="zoom-level" aria-label="Zoom level"></output><button id="zoom-in" aria-label="Zoom in">+</button><button id="fit" title="Fit all visible modules"><span class="icon" data-icon="fit"></span>Fit graph</button></div>
+      </div>
+      <footer><div class="legend"><span><i class="out"></i>Dependency</span><span><i class="in"></i>Importer</span><span><i class="cycle"></i>Cycle</span></div><span>Importer → dependency</span></footer>
+    </section>
+    <aside aria-labelledby="inspector-title">
+      <div class="panel-heading"><h2 id="inspector-title"><span class="icon" data-icon="inspect"></span>Module inspector</h2><button id="clear" title="Clear selection" aria-label="Clear selection" hidden>×</button></div>
+      <div class="inspector-scroll"><div id="details"></div>
+        <details id="index"><summary>Module index</summary><div id="module-list"></div></details>
+        <details id="diagnostics" hidden><summary id="warning-count"></summary><ul id="warnings"></ul></details>
+      </div>
+    </aside>
+  </div>
+</main>
+<script id="report-data" type="application/json"><!-- DATA --></script>
+<script>/* CYTOSCAPE */</script>
+<script>/* APP */</script>
+</body>
+</html>

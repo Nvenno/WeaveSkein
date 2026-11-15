@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "weaveskein"
+version = "0.1.0"
+description = "An offline, interactive dependency explorer for Python projects."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE", "src/weaveskein/assets/CYTOSCAPE-LICENSE.txt"]
+authors = [{ name = "WeaveSkein contributors" }]
+keywords = ["dependencies", "architecture", "static-analysis", "visualization"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = ["networkx>=3.2,<4", "typer>=0.16,<1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.11", "build>=1.2"]
+
+[project.scripts]
+weaveskein = "weaveskein.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["weaveskein", "weaveskein.*"]
+
+[tool.setuptools.package-data]
+"weaveskein.assets" = ["*.html", "*.css", "*.js", "*.txt"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --import-mode=importlib"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = [".qa"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B", "UP"]
